@@ -35,3 +35,12 @@ Route::get('/questions/{question}', 'QuestionController@show')->name('question.s
 Route::post('/questions/store', 'QuestionController@store')->name('question.store');
 Route::patch('/questions/{question}/update', 'QuestionController@update')->name('question.update');
 Route::delete('/questions/{question}/delete', 'QuestionController@destroy')->name('question.delete');
+
+/**
+ * Reply route
+ */
+Route::get('/replies', 'ReplyController@index')->name('reply.list');
+Route::get('/replies/{reply:id}', 'ReplyController@show')->name('reply.show');
+Route::post('/replies/store', 'ReplyController@store')->name('reply.store');
+Route::patch('/replies/{reply:id}/update', 'ReplyController@update')->name('reply.update');
+Route::delete('/replies/{reply:id}/delete', 'ReplyController@destroy')->name('reply.delete');
