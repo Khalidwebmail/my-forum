@@ -18,6 +18,7 @@ class Question extends Model
     }
 
     /**
+     * Get user info
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
@@ -26,6 +27,7 @@ class Question extends Model
     }
 
     /**
+     * Get replies of single question
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function replies()
@@ -34,10 +36,19 @@ class Question extends Model
     }
 
     /**
+     * Get the category of question
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPathAttribute()
+    {
+        return asset("api/question/$this->slug");
     }
 }

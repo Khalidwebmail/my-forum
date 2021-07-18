@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\QuestionResource;
 use App\Question;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        return Question::all();
+        return QuestionResource::collection(Question::latest()->get());
     }
 
     /**
@@ -37,7 +38,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        return $question;
+        return new QuestionResource($question);
     }
 
     /**
