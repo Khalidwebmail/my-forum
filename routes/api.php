@@ -54,7 +54,6 @@ Route::delete('/like/{reply}', 'LikeController@unlikeIt');
 Route::group([
 
     'middleware' => 'api',
-    //'namespace' => 'App\Http\Controllers',
     'prefix' => 'auth'
 
 ], function ($router) {
