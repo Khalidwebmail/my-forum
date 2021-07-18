@@ -44,3 +44,9 @@ Route::get('/replies/{reply:id}', 'ReplyController@show')->name('reply.show');
 Route::post('/replies/store', 'ReplyController@store')->name('reply.store');
 Route::patch('/replies/{reply:id}/update', 'ReplyController@update')->name('reply.update');
 Route::delete('/replies/{reply:id}/delete', 'ReplyController@destroy')->name('reply.delete');
+
+/**
+ * Like and dislike route
+ */
+Route::get('/like/{reply}', 'LikeController@likeIt');
+Route::delete('/like/{reply}', 'LikeController@unlikeIt');
