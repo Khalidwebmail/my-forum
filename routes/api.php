@@ -50,3 +50,18 @@ Route::delete('/replies/{reply:id}/delete', 'ReplyController@destroy')->name('re
  */
 Route::get('/like/{reply}', 'LikeController@likeIt');
 Route::delete('/like/{reply}', 'LikeController@unlikeIt');
+
+Route::group([
+
+    'middleware' => 'api',
+    //'namespace' => 'App\Http\Controllers',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});
