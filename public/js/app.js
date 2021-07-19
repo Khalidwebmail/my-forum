@@ -2091,6 +2091,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LoginComponent",
   data: function data() {
@@ -2100,6 +2102,15 @@ __webpack_require__.r(__webpack_exports__);
         password: null
       }
     };
+  },
+  methods: {
+    login: function login() {
+      axios.post('/api/auth/login', this.form).then(function (res) {
+        console.log(res.data);
+      })["catch"](function (res) {
+        console.log(error.res.data);
+      });
+    }
   }
 });
 
@@ -37906,17 +37917,16 @@ var render = function() {
   return _c(
     "v-form",
     {
-      model: {
-        value: _vm.valid,
-        callback: function($$v) {
-          _vm.valid = $$v
-        },
-        expression: "valid"
+      on: {
+        submit: function($event) {
+          $event.preventDefault()
+          return _vm.login.apply(null, arguments)
+        }
       }
     },
     [
       _c("v-text-field", {
-        attrs: { label: "E-mail", required: "" },
+        attrs: { label: "E-mail", type: "email", required: "" },
         model: {
           value: _vm.form.email,
           callback: function($$v) {
@@ -37927,7 +37937,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("v-text-field", {
-        attrs: { label: "Password", required: "" },
+        attrs: { label: "Password", type: "password", required: "" },
         model: {
           value: _vm.form.password,
           callback: function($$v) {
