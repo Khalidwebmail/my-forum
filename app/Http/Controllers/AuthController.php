@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -35,6 +37,16 @@ class AuthController extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
 
+    /**
+     * Register new user
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function register()
+    {
+        User::create(request()->all());
+        return response()->json(['success'=>'User created'], 201);
+    }
     /**
      * Get the authenticated User
      *

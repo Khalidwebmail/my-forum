@@ -33,7 +33,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  object  $category
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
