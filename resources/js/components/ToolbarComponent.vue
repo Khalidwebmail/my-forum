@@ -4,10 +4,21 @@
         <v-app-bar-title>SPA Blog</v-app-bar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
-            <v-btn text>Forum</v-btn>
-            <v-btn text>Ask Question</v-btn>
-            <v-btn text>Category</v-btn>
-            <v-btn text>Signin</v-btn>
+            <router-link to="#">
+                <v-btn text>Forum</v-btn>
+            </router-link>
+
+            <router-link to="#">
+                <v-btn text>Ask Question</v-btn>
+            </router-link>
+
+            <router-link to="#">
+                <v-btn text>Category</v-btn>
+            </router-link>
+
+            <router-link to="/login">
+                <v-btn text>Signin</v-btn>
+            </router-link>
         </v-toolbar-items>
     </v-toolbar>
 </template>
