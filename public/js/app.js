@@ -2091,38 +2091,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "LoginComponent"
+  name: "LoginComponent",
+  data: function data() {
+    return {
+      form: {
+        email: null,
+        password: null
+      }
+    };
+  }
 });
 
 /***/ }),
@@ -37928,8 +37906,6 @@ var render = function() {
   return _c(
     "v-form",
     {
-      ref: "form",
-      attrs: { "lazy-validation": "" },
       model: {
         value: _vm.valid,
         callback: function($$v) {
@@ -37940,96 +37916,36 @@ var render = function() {
     },
     [
       _c("v-text-field", {
-        attrs: {
-          counter: 10,
-          rules: _vm.nameRules,
-          label: "Name",
-          required: ""
-        },
+        attrs: { label: "E-mail", required: "" },
         model: {
-          value: _vm.name,
+          value: _vm.form.email,
           callback: function($$v) {
-            _vm.name = $$v
+            _vm.$set(_vm.form, "email", $$v)
           },
-          expression: "name"
+          expression: "form.email"
         }
       }),
       _vm._v(" "),
       _c("v-text-field", {
-        attrs: { rules: _vm.emailRules, label: "E-mail", required: "" },
+        attrs: { label: "Password", required: "" },
         model: {
-          value: _vm.email,
+          value: _vm.form.password,
           callback: function($$v) {
-            _vm.email = $$v
+            _vm.$set(_vm.form, "password", $$v)
           },
-          expression: "email"
-        }
-      }),
-      _vm._v(" "),
-      _c("v-select", {
-        attrs: {
-          items: _vm.items,
-          rules: [
-            function(v) {
-              return !!v || "Item is required"
-            }
-          ],
-          label: "Item",
-          required: ""
-        },
-        model: {
-          value: _vm.select,
-          callback: function($$v) {
-            _vm.select = $$v
-          },
-          expression: "select"
-        }
-      }),
-      _vm._v(" "),
-      _c("v-checkbox", {
-        attrs: {
-          rules: [
-            function(v) {
-              return !!v || "You must agree to continue!"
-            }
-          ],
-          label: "Do you agree?",
-          required: ""
-        },
-        model: {
-          value: _vm.checkbox,
-          callback: function($$v) {
-            _vm.checkbox = $$v
-          },
-          expression: "checkbox"
+          expression: "form.password"
         }
       }),
       _vm._v(" "),
       _c(
         "v-btn",
-        {
-          staticClass: "mr-4",
-          attrs: { disabled: !_vm.valid, color: "success" },
-          on: { click: _vm.validate }
-        },
-        [_vm._v("\n        Validate\n    ")]
+        { staticClass: "mr-4", attrs: { color: "success", type: "submit" } },
+        [_vm._v("\n        Login\n    ")]
       ),
       _vm._v(" "),
-      _c(
-        "v-btn",
-        {
-          staticClass: "mr-4",
-          attrs: { color: "error" },
-          on: { click: _vm.reset }
-        },
-        [_vm._v("\n        Reset Form\n    ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "v-btn",
-        { attrs: { color: "warning" }, on: { click: _vm.resetValidation } },
-        [_vm._v("\n        Reset Validation\n    ")]
-      )
+      _c("v-btn", { staticClass: "mr-4", attrs: { color: "error" } }, [
+        _vm._v("\n        Reset Form\n    ")
+      ])
     ],
     1
   )

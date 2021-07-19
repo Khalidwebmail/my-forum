@@ -1,68 +1,46 @@
 <template>
-    <v-form
-        ref="form"
-        v-model="valid"
-        lazy-validation
-    >
-        <v-text-field
-            v-model="name"
-            :counter="10"
-            :rules="nameRules"
-            label="Name"
-            required
-        ></v-text-field>
+    <v-form v-model="valid">
 
         <v-text-field
-            v-model="email"
-            :rules="emailRules"
+            v-model="form.email"
             label="E-mail"
             required
         ></v-text-field>
 
-        <v-select
-            v-model="select"
-            :items="items"
-            :rules="[v => !!v || 'Item is required']"
-            label="Item"
+        <v-text-field
+            v-model="form.password"
+            label="Password"
             required
-        ></v-select>
-
-        <v-checkbox
-            v-model="checkbox"
-            :rules="[v => !!v || 'You must agree to continue!']"
-            label="Do you agree?"
-            required
-        ></v-checkbox>
+        ></v-text-field>
 
         <v-btn
-            :disabled="!valid"
             color="success"
             class="mr-4"
-            @click="validate"
+            type="submit"
         >
-            Validate
+            Login
         </v-btn>
 
         <v-btn
             color="error"
             class="mr-4"
-            @click="reset"
         >
             Reset Form
-        </v-btn>
-
-        <v-btn
-            color="warning"
-            @click="resetValidation"
-        >
-            Reset Validation
         </v-btn>
     </v-form>
 </template>
 
 <script>
 export default {
-    name: "LoginComponent"
+    name: "LoginComponent",
+    data(){
+        return{
+            form: {
+                email: null,
+                password: null
+            }
+        }
+    }
 }
 </script>
 
