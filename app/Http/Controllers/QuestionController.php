@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
     /**
+     * QuestionController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('JWT', ['except' => ['index', 'show']]);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
