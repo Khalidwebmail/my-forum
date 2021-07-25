@@ -28,6 +28,23 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+//        $validator = \Validator::make($request->all(), [
+//            'email'     => 'required|exists,user',
+//            'password'  => 'required|min:8',
+//        ],
+//        [
+//            'email.required'     => 'Please enter a valid email',
+//            'password.required'  => 'Please enter password',
+//        ]);
+//
+//        if($validator->fails()) {
+//            $response = [
+//                'success' => false,
+//                'message' => $validator->messages()
+//            ];
+//            return response()->json($response, 404);
+//        }
+
         $credentials = $request->only('email', 'password');
 
         if ($token = $this->guard()->attempt($credentials)) {
@@ -89,9 +106,10 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => $this->guard()->factory()->getTTL() * 60
+            'access_token'  => $token,
+            'token_type'    => 'bearer',
+            'expires_in'    => $this->guard()->factory()->getTTL() * 60,
+            'user'          => auth()->user()->name
         ]);
     }
 
