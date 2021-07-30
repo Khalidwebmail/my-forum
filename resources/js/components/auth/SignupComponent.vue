@@ -61,12 +61,12 @@ export default {
     },
     methods:{
         signup(){
-            axios.post('/api/register', this.form)
+            axios.post('/api/auth/register', this.form)
             .then(res => {
                 this.$router.push({name: '/login'})
             })
             .catch(error => {
-
+                console.log(error.res.data)
             })
         }
     }

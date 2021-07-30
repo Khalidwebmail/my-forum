@@ -2189,11 +2189,13 @@ __webpack_require__.r(__webpack_exports__);
     signup: function signup() {
       var _this = this;
 
-      axios.post('/api/register', this.form).then(function (res) {
+      axios.post('/api/auth/register', this.form).then(function (res) {
         _this.$router.push({
           name: '/login'
         });
-      })["catch"](function (error) {});
+      })["catch"](function (error) {
+        console.log(error.res.data);
+      });
     }
   }
 });
