@@ -26,10 +26,7 @@ Vue.component('AppHome', require('./components/AppHome.vue').default);
 import router from './router'
 import User from "./helper/User"
 window.User = User
-import Storage from "./helper/Storage"
-window.Storage = Storage
-import Token from "./helper/Token"
-window.Token = Token
+console.log(User.id())
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
