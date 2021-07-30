@@ -98733,6 +98733,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AppHome', __webpack_requir
 
 
 window.User = _helper_User__WEBPACK_IMPORTED_MODULE_3__["default"];
+console.log(_helper_User__WEBPACK_IMPORTED_MODULE_3__["default"].id());
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -99276,6 +99277,62 @@ var User = /*#__PURE__*/function () {
 
       if (_Token__WEBPACK_IMPORTED_MODULE_0__["default"].isValid(access_token)) {
         _Storage__WEBPACK_IMPORTED_MODULE_1__["default"].store(username, access_token);
+      }
+    }
+    /**
+     * Check token available or not in memory
+     */
+
+  }, {
+    key: "hasToken",
+    value: function hasToken() {
+      var store_token = _Storage__WEBPACK_IMPORTED_MODULE_1__["default"].getToken();
+
+      if (store_token) {
+        return _Token__WEBPACK_IMPORTED_MODULE_0__["default"].isValid(store_token) ? true : false;
+      }
+
+      return false;
+    }
+    /**
+     * Check user status loggedin or not
+     */
+
+  }, {
+    key: "loggedIn",
+    value: function loggedIn() {
+      return this.hasToken();
+    }
+    /**
+     * User logout
+     */
+
+  }, {
+    key: "logout",
+    value: function logout() {
+      _Storage__WEBPACK_IMPORTED_MODULE_1__["default"].clear();
+    }
+    /**
+     * Get user username
+     */
+
+  }, {
+    key: "name",
+    value: function name() {
+      if (this.loggedIn()) {
+        return _Storage__WEBPACK_IMPORTED_MODULE_1__["default"].getUser();
+      }
+    }
+    /**
+     * Get user id
+     */
+
+  }, {
+    key: "id",
+    value: function id() {
+      if (this.loggedIn()) {
+        var payload = _Token__WEBPACK_IMPORTED_MODULE_0__["default"].payload(_Storage__WEBPACK_IMPORTED_MODULE_1__["default"].getToken());
+        return payload.sub;
       }
     }
   }]);

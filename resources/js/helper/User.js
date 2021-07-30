@@ -24,5 +24,49 @@ class User {
             Storage.store(username, access_token)
         }
     }
+
+    /**
+     * Check token available or not in memory
+     */
+    hasToken() {
+        const store_token = Storage.getToken()
+        if(store_token) {
+            return Token.isValid(store_token) ? true : false
+        }
+        return false
+    }
+
+    /**
+     * Check user status loggedin or not
+     */
+    loggedIn() {
+        return this.hasToken()
+    }
+
+    /**
+     * User logout
+     */
+    logout(){
+        Storage.clear()
+    }
+
+    /**
+     * Get user username
+     */
+    name() {
+        if(this.loggedIn()) {
+            return Storage.getUser()
+        }
+    }
+
+    /**
+     * Get user id
+     */
+    id() {
+        if(this.loggedIn()) {
+            const payload = Token.payload(Storage.getToken())
+            return payload.sub;
+        }
+    }
 }
 export default User = new User()
