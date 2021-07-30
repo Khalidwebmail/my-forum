@@ -16,6 +16,10 @@
                 <v-btn text>Category</v-btn>
             </router-link>
 
+            <router-link to="/signup">
+                <v-btn text>Signup</v-btn>
+            </router-link>
+
             <router-link to="/login">
                 <v-btn text>Signin</v-btn>
             </router-link>
