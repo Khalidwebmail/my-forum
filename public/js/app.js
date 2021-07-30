@@ -2173,6 +2173,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SignupComponent",
   data: function data() {
@@ -2182,7 +2185,8 @@ __webpack_require__.r(__webpack_exports__);
         email: null,
         password: null,
         password_confirmation: null
-      }
+      },
+      errors: {}
     };
   },
   methods: {
@@ -2194,7 +2198,7 @@ __webpack_require__.r(__webpack_exports__);
           name: '/login'
         });
       })["catch"](function (error) {
-        console.log(error.res.data);
+        return _this.errors = error.response.data.errors;
       });
     }
   }
@@ -38097,6 +38101,12 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+      _vm.errors.name
+        ? _c("span", { staticClass: "red--text" }, [
+            _vm._v(_vm._s(_vm.errors.name[0]))
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("v-text-field", {
         attrs: { label: "E-mail", type: "email", required: "" },
         model: {
@@ -38108,6 +38118,12 @@ var render = function() {
         }
       }),
       _vm._v(" "),
+      _vm.errors.email
+        ? _c("span", { staticClass: "red--text" }, [
+            _vm._v(_vm._s(_vm.errors.email[0]))
+          ])
+        : _vm._e(),
+      _vm._v(" "),
       _c("v-text-field", {
         attrs: { label: "Password", type: "password", required: "" },
         model: {
@@ -38118,6 +38134,12 @@ var render = function() {
           expression: "form.password"
         }
       }),
+      _vm._v(" "),
+      _vm.errors.password
+        ? _c("span", { staticClass: "red--text" }, [
+            _vm._v(_vm._s(_vm.errors.password[0]))
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("v-text-field", {
         attrs: { label: "Re type Password", type: "password", required: "" },

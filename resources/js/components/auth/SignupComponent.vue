@@ -7,6 +7,7 @@
             type="text"
             required
         ></v-text-field>
+        <span class="red--text" v-if="errors.name">{{errors.name[0]}}</span>
 
         <v-text-field
             v-model="form.email"
@@ -14,6 +15,7 @@
             type="email"
             required
         ></v-text-field>
+        <span class="red--text" v-if="errors.email">{{errors.email[0]}}</span>
 
         <v-text-field
             v-model="form.password"
@@ -21,6 +23,7 @@
             type="password"
             required
         ></v-text-field>
+        <span class="red--text" v-if="errors.password">{{errors.password[0]}}</span>
 
         <v-text-field
             v-model="form.password_confirmation"
@@ -56,7 +59,8 @@ export default {
                 email:                 null,
                 password:              null,
                 password_confirmation: null
-            }
+            },
+            errors:{}
         }
     },
     methods:{
@@ -65,9 +69,7 @@ export default {
             .then(res => {
                 this.$router.push({name: '/login'})
             })
-            .catch(error => {
-                console.log(error.res.data)
-            })
+            .catch(error => this.errors = error.response.data.errors)
         }
     }
 }

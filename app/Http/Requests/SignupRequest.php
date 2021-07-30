@@ -25,8 +25,24 @@ class SignupRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required',
-            'password' => 'required|confirmed'
+            'email' => 'required|unique:users,email|email',
+            'password' => 'required|confirmed|min:8'
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Please give your name',
+            'email.required' => 'Please give a valid email',
+            'email.unique'  => 'This email is already taken',
+            'password.required'  => 'Please give your password',
+            'password.max'  => 'Password should be min 8 chars',
+        ];
+    }
+
 }
