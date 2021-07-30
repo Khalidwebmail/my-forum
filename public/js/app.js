@@ -98708,8 +98708,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
 /* harmony import */ var _helper_User__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helper/User */ "./resources/js/helper/User.js");
-/* harmony import */ var _helper_Storage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helper/Storage */ "./resources/js/helper/Storage.js");
-/* harmony import */ var _helper_Token__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./helper/Token */ "./resources/js/helper/Token.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -98735,10 +98733,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AppHome', __webpack_requir
 
 
 window.User = _helper_User__WEBPACK_IMPORTED_MODULE_3__["default"];
-
-window.Storage = _helper_Storage__WEBPACK_IMPORTED_MODULE_4__["default"];
-
-window.Token = _helper_Token__WEBPACK_IMPORTED_MODULE_5__["default"];
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -99196,15 +99190,17 @@ var Token = /*#__PURE__*/function () {
     }
     /**
      *
+     * @param payload
+     * @returns {any}
      */
 
   }, {
     key: "decode",
-    value: function decode() {
+    value: function decode(payload) {
       return JSON.parse(atob(payload));
     }
     /**
-     * 
+     *
      * @param token
      */
 
@@ -99214,7 +99210,7 @@ var Token = /*#__PURE__*/function () {
       var payload = this.payload(token);
 
       if (payload) {
-        return payload.iss == 'http://localhost:8000/api/auth/login' ? true : false;
+        return payload.iss == "http://localhost:8000/api/auth/login" ? true : false;
       }
 
       return false;
@@ -99237,15 +99233,17 @@ var Token = /*#__PURE__*/function () {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Token__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Token */ "./resources/js/helper/Token.js");
+/* harmony import */ var _Storage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Storage */ "./resources/js/helper/Storage.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-/**
- *
- */
+
+
+
 var User = /*#__PURE__*/function () {
   function User() {
     _classCallCheck(this, User);
@@ -99259,11 +99257,26 @@ var User = /*#__PURE__*/function () {
      * @param data
      */
     function login(data) {
+      var _this = this;
+
       axios.post('/api/auth/login', data).then(function (res) {
-        console.log(res.data.access_token);
-      })["catch"](function (error) {
-        console.log(error.res.data);
-      });
+        return _this.resAfterLogin(res);
+      })["catch"]();
+    }
+    /**
+     *
+     * @param res
+     */
+
+  }, {
+    key: "resAfterLogin",
+    value: function resAfterLogin(res) {
+      var access_token = res.data.access_token;
+      var username = res.data.user;
+
+      if (_Token__WEBPACK_IMPORTED_MODULE_0__["default"].isValid(access_token)) {
+        _Storage__WEBPACK_IMPORTED_MODULE_1__["default"].store(username, access_token);
+      }
     }
   }]);
 
