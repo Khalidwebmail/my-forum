@@ -71,7 +71,13 @@ export default {
             })
             .catch(error => this.errors = error.response.data.errors)
         }
-    }
+    },
+    
+    created() {
+        if(User.loggedIn()){
+            this.$router.push({name:'/forum'})
+        }
+    },
 }
 </script>
 

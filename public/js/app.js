@@ -2033,23 +2033,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "ToolbarComponent"
+  name: "ToolbarComponent",
+  data: function data() {
+    return {
+      items: [{
+        'title': 'Forum',
+        to: '/forum',
+        show: true
+      }, {
+        'title': 'Signin',
+        to: '/login',
+        show: !User.loggedIn()
+      }, {
+        'title': 'Signup',
+        to: '/signup',
+        show: !User.loggedIn()
+      }, {
+        'title': 'Category',
+        to: '/category',
+        show: User.loggedIn()
+      }, {
+        'title': 'Ask Question',
+        to: '/ask-question',
+        show: User.loggedIn()
+      }, {
+        'title': 'Logout',
+        to: '/logout',
+        show: User.loggedIn()
+      }]
+    };
+  }
 });
 
 /***/ }),
@@ -2063,6 +2077,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_User__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helper/User */ "./resources/js/helper/User.js");
 //
 //
 //
@@ -2097,6 +2112,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "LoginComponent",
   data: function data() {
@@ -2107,9 +2123,16 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  created: function created() {
+    if (_helper_User__WEBPACK_IMPORTED_MODULE_0__["default"].loggedIn()) {
+      this.$router.push({
+        name: '/forum'
+      });
+    }
+  },
   methods: {
     login: function login() {
-      User.login(this.form);
+      _helper_User__WEBPACK_IMPORTED_MODULE_0__["default"].login(this.form);
     }
   }
 });
@@ -2199,6 +2222,13 @@ __webpack_require__.r(__webpack_exports__);
         });
       })["catch"](function (error) {
         return _this.errors = error.response.data.errors;
+      });
+    }
+  },
+  created: function created() {
+    if (User.loggedIn()) {
+      this.$router.push({
+        name: '/forum'
       });
     }
   }
@@ -37966,42 +37996,20 @@ var render = function() {
       _c(
         "v-toolbar-items",
         { staticClass: "hidden-sm-and-down" },
-        [
-          _c(
-            "router-link",
-            { attrs: { to: "/forum" } },
-            [_c("v-btn", { attrs: { text: "" } }, [_vm._v("Forum")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            { attrs: { to: "#" } },
-            [_c("v-btn", { attrs: { text: "" } }, [_vm._v("Ask Question")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            { attrs: { to: "#" } },
-            [_c("v-btn", { attrs: { text: "" } }, [_vm._v("Category")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            { attrs: { to: "/signup" } },
-            [_c("v-btn", { attrs: { text: "" } }, [_vm._v("Signup")])],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            { attrs: { to: "/login" } },
-            [_c("v-btn", { attrs: { text: "" } }, [_vm._v("Signin")])],
-            1
-          )
-        ],
+        _vm._l(_vm.items, function(item) {
+          return item.show
+            ? _c(
+                "router-link",
+                { key: item.title, attrs: { to: item.to } },
+                [
+                  _c("v-btn", { attrs: { text: "" } }, [
+                    _vm._v(_vm._s(item.title))
+                  ])
+                ],
+                1
+              )
+            : _vm._e()
+        }),
         1
       )
     ],
