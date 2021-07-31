@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import User from "../../helper/User";
+
 export default {
     name: "LoginComponent",
     data() {
@@ -41,6 +43,12 @@ export default {
                 email: null,
                 password: null
             }
+        }
+    },
+
+    created() {
+        if(User.loggedIn()){
+            this.$router.push({name:'/forum'})
         }
     },
     methods:{
