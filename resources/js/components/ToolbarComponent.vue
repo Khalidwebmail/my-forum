@@ -4,7 +4,7 @@
         <v-app-bar-title>SPA Blog</v-app-bar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
-            <router-link to="#">
+            <router-link to="/forum">
                 <v-btn text>Forum</v-btn>
             </router-link>
 
