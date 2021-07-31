@@ -26,6 +26,11 @@ export default {
                 {'title': 'Logout', to: '/logout', show: User.loggedIn()},
             ]
         }
+    },
+    created() {
+        EventBus.$on('logout', () => {
+            User.logout()
+        })
     }
 }
 </script>

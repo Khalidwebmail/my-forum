@@ -49,6 +49,7 @@ class User {
      */
     logout(){
         Storage.clear()
+        window.location = '/login'
     }
 
     /**
