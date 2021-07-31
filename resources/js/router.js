@@ -16,7 +16,7 @@ const routes = [
     { path: '/forum', component: ForumComponent, name: '/forum' },
     { path: '/logout', component: LogoutComponent, name: '/logout' },
     { path: '/question/:slug', component: ReadComponent, name: '/read' },
-    { path: '/question-create', component: CreateQuestionComponent, name: '/question-create' },
+    { path: '/ask-question', component: CreateQuestionComponent, name: '/ask-question' },
 ];
 
 const router = new VueRouter({

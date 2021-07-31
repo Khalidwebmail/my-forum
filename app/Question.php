@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+    /**
+     *
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($question) {
+            $question->slug = \Str::slug($question->title);
+        });
+    }
     protected $fillable = ['title','slug','body','user_id','category_id'];
 
     /**

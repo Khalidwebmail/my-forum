@@ -34,7 +34,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        Question::create($request->all());
+        auth()->user()->question()->create($request->all());
         return response()->json(['success'=>'Question created'], 201);
     }
 

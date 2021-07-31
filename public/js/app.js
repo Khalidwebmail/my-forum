@@ -118711,6 +118711,21 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+var jwt_token = "Bearer ".concat(localStorage.getItem('token'));
+window.axios.defaults.headers.common['Authorization'] = jwt_token;
+/**
+* Next we will register the CSRF Token as a common header with Axios so that
+* all outgoing HTTP requests automatically have it attached. This is just
+* a simple convenience so we don't have to attach every token manually.
+*/
+
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -119811,9 +119826,9 @@ var routes = [{
   component: _components_forum_ReadComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
   name: '/read'
 }, {
-  path: '/question-create',
+  path: '/ask-question',
   component: _components_forum_CreateQuestionComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
-  name: '/question-create'
+  name: '/ask-question'
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
