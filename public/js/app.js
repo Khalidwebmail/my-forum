@@ -2494,9 +2494,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShowQuestion",
   props: ['data'],
+  data: function data() {
+    return {
+      own: User.own(this.data.user_id)
+    };
+  },
   computed: {
     body: function body() {
       return md.parse(this.data.body);
@@ -57804,6 +57824,29 @@ var render = function() {
           _c("v-spacer"),
           _vm._v(" "),
           _c("v-card-text", { domProps: { innerHTML: _vm._s(_vm.body) } }),
+          _vm._v(" "),
+          _vm.own
+            ? _c(
+                "v-card-actions",
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      staticClass: "ma-2",
+                      attrs: { color: "primary", dark: "" }
+                    },
+                    [_vm._v("\n           Edit\n           ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    { staticClass: "ma-2", attrs: { color: "red", dark: "" } },
+                    [_vm._v("\n               Delete\n           ")]
+                  )
+                ],
+                1
+              )
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "v-btn",
@@ -119789,6 +119832,11 @@ var User = /*#__PURE__*/function () {
         var payload = _Token__WEBPACK_IMPORTED_MODULE_0__["default"].payload(_Storage__WEBPACK_IMPORTED_MODULE_1__["default"].getToken());
         return payload.sub;
       }
+    }
+  }, {
+    key: "own",
+    value: function own(id) {
+      return this.id() == id;
     }
   }]);
 
