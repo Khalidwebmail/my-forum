@@ -49,10 +49,10 @@ export default {
         createQuestion: function (){
             axios.post('/api/questions/store', this.form)
             .then(res => {
-
+                this.$router.push(res.data.path)
             })
             .catch(error => {
-
+                this.errors = error.res.data.error
             })
         }
     }

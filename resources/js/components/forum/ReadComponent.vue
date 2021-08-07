@@ -1,6 +1,7 @@
 <template>
     <show-question
     :data = question
+    v-if = 'question'
     ></show-question>
 </template>
 
@@ -10,7 +11,7 @@ export default {
     components: {ShowQuestion},
     data(){
         return{
-            question: {}
+            question: null
         }
     },
     name: "ReadComponent",

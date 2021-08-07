@@ -2323,7 +2323,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     createQuestion: function createQuestion() {
-      axios.post('/api/questions/store', this.form).then(function (res) {})["catch"](function (error) {});
+      var _this2 = this;
+
+      axios.post('/api/questions/store', this.form).then(function (res) {
+        _this2.$router.push(res.data.path);
+      })["catch"](function (error) {
+        _this2.errors = error.res.data.error;
+      });
     }
   }
 });
@@ -2438,6 +2444,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2445,7 +2452,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      question: {}
+      question: null
     };
   },
   name: "ReadComponent",
@@ -2486,9 +2493,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShowQuestion",
-  props: ['data']
+  props: ['data'],
+  computed: {
+    body: function body() {
+      return md.parse(this.data.body);
+    }
+  }
 });
 
 /***/ }),
@@ -57737,7 +57750,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("show-question", { attrs: { data: _vm.question } })
+  return _vm.question
+    ? _c("show-question", { attrs: { data: _vm.question } })
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57787,6 +57802,8 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("v-spacer"),
+          _vm._v(" "),
+          _c("v-card-text", { domProps: { innerHTML: _vm._s(_vm.body) } }),
           _vm._v(" "),
           _c(
             "v-btn",
@@ -118638,8 +118655,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuetify */ "./node_modules/vuetify/dist/vuetify.js");
 /* harmony import */ var vuetify__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuetify__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_simplemde__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-simplemde */ "./node_modules/vue-simplemde/src/index.vue");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
-/* harmony import */ var _helper_User__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helper/User */ "./resources/js/helper/User.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! marked */ "./node_modules/marked/lib/marked.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(marked__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _helper_User__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./helper/User */ "./resources/js/helper/User.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -118653,6 +118672,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuetify__WEBPACK_IMPORTED_MODULE_1___default.a);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('vue-simplemde', vue_simplemde__WEBPACK_IMPORTED_MODULE_2__["default"]);
+
+window.md = marked__WEBPACK_IMPORTED_MODULE_3___default.a;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -118666,7 +118687,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('vue-simplemde', vue_simple
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('AppHome', __webpack_require__(/*! ./components/AppHome.vue */ "./resources/js/components/AppHome.vue")["default"]);
 
 
-window.User = _helper_User__WEBPACK_IMPORTED_MODULE_4__["default"];
+window.User = _helper_User__WEBPACK_IMPORTED_MODULE_5__["default"];
 window.EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -118675,7 +118696,7 @@ window.EventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
  */
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  router: _router__WEBPACK_IMPORTED_MODULE_3__["default"],
+  router: _router__WEBPACK_IMPORTED_MODULE_4__["default"],
   vuetify: new vuetify__WEBPACK_IMPORTED_MODULE_1___default.a(),
   el: '#app'
 });
