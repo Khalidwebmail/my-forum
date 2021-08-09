@@ -60,8 +60,21 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * Encrypt given password
+     * @param $val
+     */
     public function setPasswordAttribute($val)
     {
         $this->attributes['password'] = Hash::make($val);
+    }
+
+    /**
+     * Create relationship qustion with user
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function question()
+    {
+        return $this->hasMany(Question::class);
     }
 }
