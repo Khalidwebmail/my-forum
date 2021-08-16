@@ -15,6 +15,7 @@
                <v-btn class="ma-2"
                       color="primary"
                       dark
+                      v-on:click="edit"
                >
                Edit
                </v-btn>
@@ -22,6 +23,7 @@
                <v-btn class="ma-2"
                       color="red"
                       dark
+                      v-on:click="destroy"
                >
                    Delete
                </v-btn>
@@ -37,14 +39,28 @@
 export default {
     name: "ShowQuestion",
     props:['data'],
-    data(){
+    data() {
         return{
             own: User.own(this.data.user_id)
         }
     },
-    computed:{
-        body(){
+    computed: {
+        body() {
             return md.parse(this.data.body)
+        }
+    },
+    methods: {
+        destroy() {
+            axios.delete(`/api/questions/${this.data.slug}/delete`)
+            .then(res => {
+                this.$router.push('/forum')
+            })
+            .catch(error => {
+                console.log(error.res.data)
+            })
+        },
+        edit() {
+            EventBus.$emit('startEditing')
         }
     }
 }
