@@ -8,15 +8,20 @@
                     :data=question
                 ></question-component>
             </v-flex>
+
+            <v-flex xs4>
+                <app-sidebar-component></app-sidebar-component>
+            </v-flex>
         </v-layout>
     </v-container>
 </template>
 
 <script>
 import QuestionComponent from "./QuestionComponent";
+import AppSidebarComponent from "./AppSidebarComponent"
 export default {
     name: "ForumComponent",
-    components: {QuestionComponent},
+    components: {QuestionComponent, AppSidebarComponent},
     data() {
         return{
             questions: {}
