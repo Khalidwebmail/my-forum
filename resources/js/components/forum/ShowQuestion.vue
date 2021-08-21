@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card mt-2>
        <v-container fluid>
            <v-card-title>
                <div class="headline">
