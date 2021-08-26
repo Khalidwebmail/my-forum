@@ -40,6 +40,7 @@
                             <v-btn
                                 depressed
                                 color="error"
+                                v-on:click="destroy(category.slug)"
                             >
                                 Delete
                             </v-btn>
@@ -66,10 +67,17 @@ export default {
         save() {
             axios.post('/api/categories/store', this.form)
             .then(res => {
-
+                //this.categories.unshift(res.data)
+                window.location.reload();
             })
             .catch(error => {
 
+            })
+        },
+        destroy(slug, index) {
+            axios.delete(`/api/categories/${slug}/delete`)
+            .then(res => {
+                this.categories.splice(index,1)
             })
         }
     },

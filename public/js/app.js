@@ -2326,6 +2326,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2337,14 +2338,24 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     save: function save() {
-      axios.post('/api/categories/store', this.form).then(function (res) {})["catch"](function (error) {});
+      axios.post('/api/categories/store', this.form).then(function (res) {
+        //this.categories.unshift(res.data)
+        window.location.reload();
+      })["catch"](function (error) {});
+    },
+    destroy: function destroy(slug, index) {
+      var _this = this;
+
+      axios["delete"]("/api/categories/".concat(slug, "/delete")).then(function (res) {
+        _this.categories.splice(index, 1);
+      });
     }
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     axios.get('/api/categories').then(function (res) {
-      _this.categories = res.data.data;
+      _this2.categories = res.data.data;
     });
   }
 });
@@ -57899,7 +57910,14 @@ var render = function() {
                           [
                             _c(
                               "v-btn",
-                              { attrs: { depressed: "", color: "error" } },
+                              {
+                                attrs: { depressed: "", color: "error" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.destroy(category.slug)
+                                  }
+                                }
+                              },
                               [
                                 _vm._v(
                                   "\n                            Delete\n                        "
