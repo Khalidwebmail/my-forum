@@ -2327,19 +2327,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
         name: null
       },
-      categories: {}
+      categories: {},
+      edit_slug: null
     };
   },
   methods: {
+    submit: function submit() {
+      this.edit_slug ? this.update() : this.save();
+    },
     save: function save() {
       axios.post('/api/categories/store', this.form).then(function (res) {
-        //this.categories.unshift(res.data)
         window.location.reload();
       })["catch"](function (error) {});
     },
@@ -2348,6 +2362,15 @@ __webpack_require__.r(__webpack_exports__);
 
       axios["delete"]("/api/categories/".concat(slug, "/delete")).then(function (res) {
         _this.categories.splice(index, 1);
+      });
+    },
+    edit: function edit(index) {
+      this.form.name = this.categories[index].name;
+      this.edit_slug = this.categories[index].slug;
+    },
+    update: function update() {
+      axios.patch("/api/categories/".concat(this.edit_slug, "/update"), this.form).then(function (res) {
+        window.location.reload();
       });
     }
   },
@@ -57829,7 +57852,7 @@ var render = function() {
           on: {
             submit: function($event) {
               $event.preventDefault()
-              return _vm.save.apply(null, arguments)
+              return _vm.submit.apply(null, arguments)
             }
           }
         },
@@ -57845,14 +57868,23 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              staticClass: "mr-4",
-              attrs: { color: "success", type: "submit" }
-            },
-            [_vm._v("\n            Save\n        ")]
-          )
+          _vm.edit_slug
+            ? _c(
+                "v-btn",
+                {
+                  staticClass: "mr-4",
+                  attrs: { color: "success", type: "submit" }
+                },
+                [_vm._v("\n            Update\n        ")]
+              )
+            : _c(
+                "v-btn",
+                {
+                  staticClass: "mr-4",
+                  attrs: { color: "success", type: "submit" }
+                },
+                [_vm._v("\n            Save\n        ")]
+              )
         ],
         1
       ),
@@ -57868,7 +57900,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _vm._l(_vm.categories, function(category) {
+          _vm._l(_vm.categories, function(category, index) {
             return _c(
               "div",
               { key: category.id },
@@ -57884,7 +57916,14 @@ var render = function() {
                           [
                             _c(
                               "v-btn",
-                              { attrs: { depressed: "", color: "primary" } },
+                              {
+                                attrs: { depressed: "", color: "primary" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.edit(index)
+                                  }
+                                }
+                              },
                               [
                                 _vm._v(
                                   "\n                            Edit\n                        "

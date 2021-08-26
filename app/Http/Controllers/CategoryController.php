@@ -61,7 +61,7 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $category->update($request->all());
-        return response()->json(['success'=>'Category updated'], 200);
+        return response()->json(new CategoryResource($category), 200);
     }
 
     /**
