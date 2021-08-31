@@ -7,6 +7,7 @@ import LogoutComponent from "./components/auth/LogoutComponent";
 import ReadComponent from "./components/forum/ReadComponent";
 import CreateQuestionComponent from "./components/forum/CreateQuestionComponent";
 import CreateCategoryComponent from "./components/category/CreateCategoryComponent";
+import VerifyRegistrationComponent from "./components/email/VerifyRegistrationComponent";
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,7 @@ const routes = [
 
     /*Category route*/
     { path: '/category', component: CreateCategoryComponent, name: '/create-category' },
+    { path: '/verify-email/:token', component: VerifyRegistrationComponent, name: '/verify-email' },
 ];
 
 const router = new VueRouter({

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SignupRequest;
+use App\Mail\Registration;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +19,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('JWT', ['except' => ['login', 'register']]);
+        $this->middleware('JWT', ['except' => ['login', 'register', 'verifyUser']]);
     }
 
     /**
@@ -62,8 +64,13 @@ class AuthController extends Controller
      */
     public function register(SignupRequest $request)
     {
-        User::create($request->all());
-        return response()->json(['success'=>'User created'], 201);
+        $user = User::create($request->all());
+        $token = $user->createToken('my_app_token')->plainTextToken;
+        $res = [
+            $user,
+        ];
+        \Mail::send(new Registration());
+        return response()->json($res, 201);
     }
     /**
      * Get the authenticated User
@@ -87,6 +94,15 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
+    public function verifyUser(Request $request, $token)
+    {
+        $token_info = \DB::table('personal_access_tokens')->select("*")
+            ->where('token', $token)->first();
+        User::where('id', $token_info->tokenable_id)->update([
+           'email_verified_at' => Carbon::now()
+        ]);
+        \DB::table('personal_access_tokens')->where('token', $token_info->token)->delete();
+    }
     /**
      * Refresh a token.
      *

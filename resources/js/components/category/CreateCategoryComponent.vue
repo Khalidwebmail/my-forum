@@ -107,6 +107,9 @@ export default {
         }
     },
     created() {
+        if( ! User.admin() ) {
+            this.$router.push('/forum')
+        }
         axios.get('/api/categories')
             .then(res => {
                 this.categories = res.data.data
