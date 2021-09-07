@@ -1,5 +1,4 @@
 <template>
-
     <div v-if="question">
         <edit-question-component
             v-if="editing"
@@ -10,15 +9,17 @@
             v-else
             :data = question
         ></show-question>
+        <replies :replies="question.replies"></replies>
     </div>
 </template>
 
 <script>
 import ShowQuestion from "./ShowQuestion";
 import EditQuestionComponent from "./EditQuestionComponent";
+import Replies from "../reply/Replies";
 
 export default {
-    components: {ShowQuestion, EditQuestionComponent},
+    components: { Replies, ShowQuestion, EditQuestionComponent },
     data(){
         return{
             question: null,
