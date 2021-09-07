@@ -2810,6 +2810,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ShowQuestion",
   props: ['data'],
@@ -58521,7 +58522,7 @@ var render = function() {
           _c(
             "v-btn",
             { staticClass: "float-right", attrs: { color: "teal" } },
-            [_vm._v("10 Replies")]
+            [_vm._v(_vm._s(_vm.data.reply_count) + " Replies")]
           )
         ],
         1

@@ -19,6 +19,11 @@ class Question extends Model
     protected $fillable = ['title','slug','body','user_id','category_id'];
 
     /**
+     * Get every single question reply
+     * @var string[]
+     */
+    protected $with = ['replies'];
+    /**
      *
      * @return string
      */

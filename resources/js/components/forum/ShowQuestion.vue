@@ -10,6 +10,7 @@
                {{data.user}} said {{data.created_at}}
            </v-card-subtitle>
            <v-spacer></v-spacer>
+
            <v-card-text v-html="body"></v-card-text>
            <v-card-actions v-if="own">
                <v-btn class="ma-2"
@@ -28,7 +29,7 @@
                    Delete
                </v-btn>
            </v-card-actions>
-           <v-btn class="float-right" color="teal">10 Replies</v-btn>
+           <v-btn class="float-right" color="teal">{{data.reply_count}} Replies</v-btn>
        </v-container>
     </v-card>
 </template>
